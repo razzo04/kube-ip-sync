@@ -1,0 +1,21 @@
+ipCheckUrl: "https://api.ipify.org"
+defaultAnnotationKey: "k8gb.io/exposed-ip-addresses"
+lastIpStateFile: "./last_known_ip.txt"
+
+resources: # Individual resources
+  - namespace: "k8gb"
+    kind: "Service" # This is the Kind of your CRD
+    name: "fake-k8gb-coredns"
+    actions:
+      - type: "loadBalancerStatus"
+
+resourceSelectors:
+  - kind: "Gslb" # Example: cert-manager Certificate CR
+    apiVersion: "k8gb.absa.oss/v1beta1" # Group and Version
+   # labelSelector: "managed-by=ip-updater" should be good
+    annotationSelector:
+      matchExpressions:
+        - key: "k8gb.io/exposed-ip-addresses"
+          operator: "Exists"
+    actions:
+      - type: annotation

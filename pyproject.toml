@@ -1,0 +1,9 @@
+[project]
+name = "kube-ip-sync"
+version = "0.1.0"
+description = "A Kubernetes utility that automatically discovers the current public IP address and synchronizes it to specified Kubernetes resources"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "kubernetes>=32.0.1",
+]
